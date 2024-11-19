@@ -1,14 +1,14 @@
-##
+###
 GET http://localhost:3000/post
 
-##
+###
 POST http://localhost:3000/post
 
-##
-GET http://localhost:3000/post/id
+###
+GET http://localhost:3000/post/673cf78cd85a0706dbb87beb
 
-##
-GET http://localhost:3000/post?sender=id
+###
+GET http://localhost:3000/post?sender=Mever
 
-##
-PUT http://localhost:3000/post/id
+###
+PUT http://localhost:3000/post/673cf78cd85a0706dbb87beb

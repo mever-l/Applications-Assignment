@@ -1,13 +1,11 @@
-const mongoose = require('mongoose');
-const Post = monngoose.model('Post', postSchema)
+const Post = require('../models/post')
 
 const getAllPosts = async (req, res) => {
     try {
         if(req.query.sender) {
-            this.getPostsBySenderId(req, res);
+            getPostsBySenderId(req, res);
         } else {
         const posts = await Post.find();
-        res.json(posts);
         res.status(200).send(posts);
     }
     } catch (err) {
@@ -24,8 +22,8 @@ const addPost = async (req, res) => {
             description: req.body.description,
             uploadedAt: req.body.uploadedAt
         });
-        await Post.save(newPost);
-        res.status(200);
+        await Post.create(newPost);
+        res.status(200).send('Your post has been created successfully :P');
     } catch (err) {
         res.status(400).json({ error: err.message});
     }
@@ -53,15 +51,19 @@ const getPostsBySenderId = async (req, res) => {
 const updatePost = async (req, res) => {
     try {
         const newPost = Post ({
-            photo: req.body.photo,
-            title: req.body.title,
-            uploadedBy: req.body.uploadedBy,
-            description: req.body.description,
-            uploadedAt: req.body.uploadedAt
+            // photo: req.body.photo,
+            // title: req.body.title,
+            // uploadedBy: req.body.uploadedBy,
+            // description: req.body.description,
+            // uploadedAt: req.body.uploadedAt
+            photo: 'updated',
+            title: 'Thailand',
+            uploadedBy: 'Juda',
+            description: 'Koh Samui'
         });
         const postId = req.params.id;
-        await findOneAndUpdate(postId, newPost);
-        res.status(200);
+        await Post.create( {_id: postId}, newPost);
+        res.status(200).send('Your post has been updated successfully :P');
     }   catch (err) {
         res.status(400).json({ error: err.message});
     }
