@@ -1,5 +1,14 @@
 ##
-GET http://localhost:3000/posts
+GET http://localhost:3000/post
 
 ##
-POST http://localhost:3000/posts
+POST http://localhost:3000/post
+
+##
+GET http://localhost:3000/post/id
+
+##
+GET http://localhost:3000/post?sender=id
+
+##
+PUT http://localhost:3000/post/id

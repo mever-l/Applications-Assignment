@@ -14,5 +14,5 @@ app.use(bodyParser.urlencoded({extended: true, limit:'1mb'}))
 app.use(bodyParser.json())
 
 const postsRouter = require('./routes/posts.router')
-app.use('/posts', postsRouter)
+app.use('/post', postsRouter)
 app.listen(port, () => console.log(`App is listening on port ${port} :)`))
