@@ -50,19 +50,16 @@ const getPostsBySenderId = async (req, res) => {
 
 const updatePost = async (req, res) => {
     try {
-        const newPost = Post ({
-            // photo: req.body.photo,
-            // title: req.body.title,
-            // uploadedBy: req.body.uploadedBy,
-            // description: req.body.description,
-            // uploadedAt: req.body.uploadedAt
-            photo: 'updated',
-            title: 'Thailand',
-            uploadedBy: 'Juda',
-            description: 'Koh Samui'
-        });
         const postId = req.params.id;
-        await Post.create( {_id: postId}, newPost);
+        const newPost = Post ({
+            _id: postId, 
+            photo: req.body.photo,
+            title: req.body.title,
+            uploadedBy: req.body.uploadedBy,
+            description: req.body.description,
+            uploadedAt: req.body.uploadedAt,
+        });
+        await Post.findByIdAndUpdate(postId, newPost);
         res.status(200).send('Your post has been updated successfully :P');
     }   catch (err) {
         res.status(400).json({ error: err.message});
