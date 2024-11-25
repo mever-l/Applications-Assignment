@@ -9,7 +9,7 @@ const getAllPosts = async (req, res) => {
         res.status(200).send(posts);
     }
     } catch (err) {
-        res.status(400).json({ error: err.message});
+        res.status(500).json({ error: err.message});
     }
 }
 
@@ -25,7 +25,7 @@ const addPost = async (req, res) => {
         await Post.create(newPost);
         res.status(200).send('Your post has been created successfully :P');
     } catch (err) {
-        res.status(400).json({ error: err.message});
+        res.status(500).json({ error: err.message});
     }
 }
 
@@ -35,7 +35,7 @@ const getPostById = async (req, res) => {
         const postById = await Post.findById(id);
         res.status(200).send(postById);
     } catch (err) {
-        res.status(400).json({ error: err.message});
+        res.status(500).json({ error: err.message});
     }
 }
 
@@ -44,7 +44,7 @@ const getPostsBySenderId = async (req, res) => {
         const postsBySenderId = await Post.find({'uploadedBy': req.query.sender})
         res.status(200).send(postsBySenderId);
     }   catch (err) {
-        res.status(400).json({ error: err.message});
+        res.status(500).json({ error: err.message});
     }
 }
 
@@ -62,7 +62,7 @@ const updatePost = async (req, res) => {
         await Post.findByIdAndUpdate(postId, newPost);
         res.status(200).send('Your post has been updated successfully :P');
     }   catch (err) {
-        res.status(400).json({ error: err.message});
+        res.status(500).json({ error: err.message});
     }
 }
 
