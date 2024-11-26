@@ -15,7 +15,7 @@ const getAllPosts = async (req, res) => {
 
 const addPost = async (req, res) => {
     try {
-        const newPost = Post ({
+        const newPost = Post({
             photo: req.body.photo,
             title: req.body.title,
             uploadedBy: req.body.uploadedBy,
@@ -52,7 +52,7 @@ const updatePost = async (req, res) => {
     try {
         const postId = req.params.id;
         const newPost = Post ({
-            _id: postId, 
+            _id: postId,
             photo: req.body.photo,
             title: req.body.title,
             uploadedBy: req.body.uploadedBy,

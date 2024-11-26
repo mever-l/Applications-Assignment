@@ -15,4 +15,6 @@ app.use(bodyParser.json())
 
 const postsRouter = require('./routes/posts.router')
 app.use('/post', postsRouter)
+const commentsRouter = require('./routes/comments.router')
+app.use('/comment', commentsRouter)
 app.listen(port, () => console.log(`App is listening on port ${port} :)`))
