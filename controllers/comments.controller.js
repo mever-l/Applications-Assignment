@@ -12,7 +12,7 @@ const addComment = async (req, res) => {
         await Comment.create(newComment)
         res.sendStatus(200);
     } catch (error) {
-        res.status(400).json({ error: error.message })
+        res.status(500).json({ error: error.message })
     }
 }
 
@@ -26,7 +26,7 @@ const updateComment = async (req, res) => {
         await Comment.findByIdAndUpdate(commentId, newComment);
         res.sendStatus(200);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -46,7 +46,7 @@ const deleteComment = async (req, res) => {
         const comment = await Comment.deleteOne({ id });
         res.status(200).send(comment)
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -56,7 +56,7 @@ const getCommentById = async (req, res) => {
         const comment = await Comment.findById(id);
         res.status(200).send(comment)
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -69,7 +69,7 @@ const getAllComments = async (req, res) => {
         res.status(200).send(comments);
         }
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 }
 
