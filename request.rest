@@ -36,8 +36,8 @@ GET http://localhost:3000/comment?postId=673cf78cd85a0706dbb87beb
 
 ###
 # update a comment by id
-PUT http://localhost:3000/comment/update/674ace680c74326165c27da5
+PUT http://localhost:3000/comment/update/6749eeae6c83537b1bc0baba
 
 ###
 # delete a comment by id
-DELETE http://localhost:3000/comment/delete/674ace680c74326165c27da5
+DELETE http://localhost:3000/comment/delete/6749eeae6c83537b1bc0baba
