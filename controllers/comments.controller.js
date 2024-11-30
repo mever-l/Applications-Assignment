@@ -52,7 +52,7 @@ const deleteComment = async (req, res) => {
 
 const getCommentById = async (req, res) => {
     try {
-        const id = req.query.id;
+        const id = req.params.id;
         const comment = await Comment.findById(id);
         res.status(200).send(comment)
     } catch (error) {
