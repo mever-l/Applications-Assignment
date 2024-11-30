@@ -43,7 +43,7 @@ const getCommentsByPost = async (req, res) => {
 const deleteComment = async (req, res) => {
     try {
         const id = req.params.id;
-        const comment = await Comment.deleteOne({ id });
+        const comment = await Comment.findByIdAndDelete(id);
         res.status(200).send(comment)
     } catch (error) {
         res.status(500).json({ error: error.message });
