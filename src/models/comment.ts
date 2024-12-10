@@ -7,9 +7,12 @@ export const Comment =
             message: String,
             post: {
                 type: Types.ObjectId,
-                 ref: "Post"
+                ref: "Post"
             },
-            uploadedBy: String,
+            uploadedBy: {
+                type: Types.ObjectId,
+                ref: "User"
+            },
             uploadedAt: {
                 type: Date,
                 default: Date.now()

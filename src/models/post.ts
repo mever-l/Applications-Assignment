@@ -1,12 +1,15 @@
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 
 export const Post =
     model(
-        'post',
+        'Post',
          new Schema({
             photo: String,
             title: String,
-            uploadedBy: String,
+            uploadedBy: {
+                type: Types.ObjectId,
+                ref: "User"
+            },
             description: String,
             uploadedAt: {
                 type: Date,

@@ -1,12 +1,9 @@
 import { Router } from 'express';
-const usersController = require("../../controllers/users.controller");
+import { login, logout, register, updateUser } from '../controllers/users.controller';
 
-const router = Router();
+export const usersRouter = Router();
 
-router.get('/', usersController.getAllUsers);
-router.post('/', usersController.addPost);
-router.get('/:id', usersController.getPostById);
-router.get('/sender', usersController.getAllPosts);
-router.put('/:id', usersController.updatePost);
-
-module.exports = router;
+usersRouter.post('/login', login);
+usersRouter.post('/register', register);
+usersRouter.put('/update', updateUser);
+usersRouter.get('/logout', logout);
