@@ -1,20 +1,22 @@
-const express = require('express');
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import dotenv from "dotenv";
+import { commentsRouter } from "./routes/comments.router";
+import { postsRouter } from "./routes/posts.router";
+
 const app = express();
-const dotenv = require('dotenv').config()
+dotenv.config();
 const port = process.env.PORT;
 
-const mongoose = require('mongoose');
-mongoose.connect(process.env.DB_URL);
+mongoose.connect(process.env.DB_URL ?? "");
 const db = mongoose.connection
 db.on('error', (err) => console.error(err));
 db.once('open', () => console.log('Connected to Mongo :)'))
 
-const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true, limit:'1mb'}))
 app.use(bodyParser.json())
 
-const postsRouter = require('./routes/posts.router')
 app.use('/post', postsRouter)
-const commentsRouter = require('./routes/comments.router')
 app.use('/comment', commentsRouter)
 app.listen(port, () => console.log(`App is listening on port ${port} :)`))

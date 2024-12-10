@@ -1,6 +1,7 @@
-const Post = require('../models/post')
+import { Request, Response } from "express";
+import { Post } from "../models/post";
 
-const getAllPosts = async (req, res) => {
+export const getAllPosts = async (req: Request, res: Response) => {
     try {
         if(req.query.sender) {
             getPostsBySenderId(req, res);
@@ -8,14 +9,14 @@ const getAllPosts = async (req, res) => {
         const posts = await Post.find();
         res.status(200).send(posts);
     }
-    } catch (err) {
+    } catch (err: any) {
         res.status(500).json({ error: err.message});
     }
 }
 
-const addPost = async (req, res) => {
+export const addPost = async (req: Request, res: Response) => {
     try {
-        const newPost = Post({
+        const newPost = new Post({
             photo: req.body.photo,
             title: req.body.title,
             uploadedBy: req.body.uploadedBy,
@@ -24,34 +25,34 @@ const addPost = async (req, res) => {
         });
         await Post.create(newPost);
         res.status(200).send('Your post has been created successfully :P');
-    } catch (err) {
+    } catch (err: any) {
         res.status(500).json({ error: err.message});
     }
 }
 
-const getPostById = async (req, res) => {
+export const getPostById = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
         const postById = await Post.findById(id);
         res.status(200).send(postById);
-    } catch (err) {
+    } catch (err: any) {
         res.status(500).json({ error: err.message});
     }
 }
 
-const getPostsBySenderId = async (req, res) => {
+export const getPostsBySenderId = async (req: Request, res: Response) => {
     try {
         const postsBySenderId = await Post.find({'uploadedBy': req.query.sender})
         res.status(200).send(postsBySenderId);
-    }   catch (err) {
+    }   catch (err: any) {
         res.status(500).json({ error: err.message});
     }
 }
 
-const updatePost = async (req, res) => {
+export const updatePost = async (req: Request, res: Response) => {
     try {
         const postId = req.params.id;
-        const newPost = Post ({
+        const newPost = new Post({
             _id: postId,
             photo: req.body.photo,
             title: req.body.title,
@@ -61,16 +62,7 @@ const updatePost = async (req, res) => {
         });
         await Post.findByIdAndUpdate(postId, newPost);
         res.status(200).send('Your post has been updated successfully :P');
-    }   catch (err) {
+    }   catch (err: any) {
         res.status(500).json({ error: err.message});
     }
-}
-
-
-module.exports = {
-    getAllPosts,
-    addPost,
-    getPostById,
-    getPostsBySenderId,
-    updatePost
 }
