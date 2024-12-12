@@ -1,11 +1,12 @@
 import { Router } from 'express';
-import { addComment, deleteComment, getAllComments, getCommentById, getCommentsByPost, updateComment } from "../controllers/comments.controller"
+import { commentsController } from '../controllers/comments.controller';
+import { authMiddleware } from '../controllers/auth.controller';
 
 export const commentsRouter = Router();
 
-commentsRouter.post('/', addComment);
-commentsRouter.put('/update/:id', updateComment);
-commentsRouter.get('/:id', getCommentById);
-commentsRouter.get('/', getAllComments);
-commentsRouter.get('/postId', getAllComments)
-commentsRouter.delete('/delete/:id', deleteComment);
+commentsRouter.post('/', authMiddleware, commentsController.addItem.bind(commentsController));
+commentsRouter.put('/update/:id', authMiddleware, commentsController.updateItem.bind(commentsController));
+commentsRouter.get('/:id', authMiddleware, commentsController.getItemById.bind(commentsController));
+commentsRouter.get('/', authMiddleware, commentsController.getAllItems.bind(commentsController));
+commentsRouter.get('/postId', authMiddleware, commentsController.getAllItems.bind(commentsController));
+commentsRouter.delete('/delete/:id', authMiddleware, commentsController.deleteItem.bind(commentsController));

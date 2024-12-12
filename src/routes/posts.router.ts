@@ -1,10 +1,11 @@
 import { Router } from 'express';
-import { addPost, getAllPosts, getPostById, getPostsBySenderId, updatePost } from "../controllers/posts.controller";
+import  postsController  from "../controllers/posts.controller";
+import { authMiddleware } from '../controllers/auth.controller';
 
 export const postsRouter = Router();
 
-postsRouter.get('/', getAllPosts);
-postsRouter.post('/', addPost);
-postsRouter.get('/:id', getPostById);
-postsRouter.get('/sender', getAllPosts);
-postsRouter.put('/:id', updatePost);
+postsRouter.get('/', authMiddleware, postsController.getAllItems.bind(postsController));
+postsRouter.post('/', authMiddleware, postsController.addItem.bind(postsController));
+postsRouter.get('/:id',authMiddleware, postsController.getItemById).bind(postsController);
+postsRouter.get('/sender', authMiddleware, postsController.getAllItems.bind(postsController));
+postsRouter.put('/:id',authMiddleware, postsController.updateItem.bind(postsController));
