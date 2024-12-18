@@ -1,4 +1,5 @@
-import { app } from "./server";
+import { initApp } from "./server";
 
 const port = process.env.PORT;
-app.listen(port, () => console.log(`App is listening on port: ${port}`))
+initApp().then((app) => 
+app.listen(port, () => console.log(`App is listening on port: ${port}`)))
