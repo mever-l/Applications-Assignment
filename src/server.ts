@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { commentsRouter } from "./routes/comments.router";
 import { postsRouter } from "./routes/posts.router";
 import { usersRouter } from "./routes/users.router";
+import { authRouter } from "./routes/auth.router";
 
 export const app = express();
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 app.use('/post', postsRouter);
 app.use('/comment', commentsRouter);
 app.use('/user', usersRouter);
+app.use('/auth', authRouter);
 
 export const initApp = () => {
     return new Promise<Express>((resolve, reject) => {
