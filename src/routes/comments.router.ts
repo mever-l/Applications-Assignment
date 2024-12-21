@@ -10,3 +10,4 @@ commentsRouter.get('/:id', commentsController.getItemById.bind(commentsControlle
 commentsRouter.get('/', commentsController.getAllItems.bind(commentsController));
 commentsRouter.get('/postId', authMiddleware, commentsController.getAllItems.bind(commentsController));
 commentsRouter.delete('/delete/:id', authMiddleware, commentsController.deleteItem.bind(commentsController));
+commentsRouter.get('/uploader', commentsController.getAllItems.bind(commentsController));

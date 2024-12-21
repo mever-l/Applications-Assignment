@@ -1,7 +1,7 @@
 import request from "supertest";
 import {initApp} from "../server";
 import mongoose from "mongoose";
-import {postModel} from "../models/post";
+import {Post, postModel} from "../models/post";
 import { Express } from "express";
 import {userModel,User } from "../models/user";
 
@@ -31,6 +31,14 @@ const testUser: IUser = {
   email: "test@user.com",
   password: "testpassword",
   firstName: "Test",
+}
+
+const postTest: Post = {
+ title: "Test Post",
+ description: "Test Content",
+ photo: "",
+ uploadedBy: testUser,
+ uploadedAt: new Date(),
 }
 
 describe("Auth Tests", () => {
@@ -82,30 +90,25 @@ describe("Auth Tests", () => {
     const response = await request(app).post(baseUrl + "/login").send({
       email: testUser.email,
       password: "sdfsd",
+      firstName: "sdfsd",
     });
     expect(response.statusCode).not.toBe(200);
 
     const response2 = await request(app).post(baseUrl + "/login").send({
       email: "dsfasd",
       password: "sdfsd",
+      firstName: "sdfsd",
     });
     expect(response2.statusCode).not.toBe(200);
   });
 
-  test("Auth test me", async () => {
-    const response = await request(app).post("/posts").send({
-      title: "Test Post",
-      content: "Test Content",
-      owner: "sdfSd",
-    });
+  test("Auth test create post with/out token", async () => {
+   
+    const response = await request(app).post("/post").send(postTest);
     expect(response.statusCode).not.toBe(201);
-    const response2 = await request(app).post("/posts").set(
+    const response2 = await request(app).post("/post").set(
       { authorization: "JWT " + testUser.accessToken }
-    ).send({
-      title: "Test Post",
-      content: "Test Content",
-      owner: "sdfSd",
-    });
+    ).send(postTest);
     expect(response2.statusCode).toBe(201);
   });
 
@@ -157,6 +160,7 @@ describe("Auth Tests", () => {
   });
 
   jest.setTimeout(10000);
+
   test("Test timeout token ", async () => {
     const response = await request(app).post(baseUrl + "/login").send(testUser);
     expect(response.statusCode).toBe(200);
@@ -165,28 +169,23 @@ describe("Auth Tests", () => {
 
     await new Promise((resolve) => setTimeout(resolve, 5000));
 
-    const response2 = await request(app).post("/posts").set(
+    const response2 = await request(app).post("/post").set(
       { authorization: "JWT " + testUser.accessToken }
-    ).send({
-      title: "Test Post",
-      content: "Test Content",
-      owner: "sdfSd",
-    });
+    ).send(postTest);
     expect(response2.statusCode).not.toBe(201);
 
     const response3 = await request(app).post(baseUrl + "/refresh").send({
       refreshToken: testUser.refreshToken,
     });
     expect(response3.statusCode).toBe(200);
+
     testUser.accessToken = response3.body.accessToken;
 
-    const response4 = await request(app).post("/posts").set(
+    const response4 = await request(app).post("/post").set(
       { authorization: "JWT " + testUser.accessToken }
-    ).send({
-      title: "Test Post",
-      content: "Test Content",
-      owner: "sdfSd",
-    });
+    ).send(postTest);
     expect(response4.statusCode).toBe(201);
+    console.log(response4.statusCode)
+
   });
 });

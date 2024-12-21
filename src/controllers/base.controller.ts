@@ -9,14 +9,14 @@ export class BaseController<T> {
 
      async getAllItems(req: Request, res: Response) {
         const filterByPostId = req.query.postId;
-        const filterBySender = req.query.sender;
+        const filterByUploader = req.query.uploader;
         try {
             if (filterByPostId) {
                 const item = await this.model.find({ 'post': filterByPostId  });
                 res.send(item);
             }
-            if (filterBySender) {
-                const item = await this.model.find({ 'uploadedBy': filterBySender  });
+            if (filterByUploader) {
+                const item = await this.model.find({ 'uploadedBy': filterByUploader });
                 res.send(item);
             }
             else {

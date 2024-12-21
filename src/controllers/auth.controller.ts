@@ -12,6 +12,7 @@ export const register = async (req: Request, res: Response) => {
         const user = await userModel.create({
             email: req.body.email,
             password: hashedPassword,
+            firstName: req.body.firstName,
         });
         res.status(200).send(user);
     } catch (err) {

@@ -11,7 +11,7 @@ class PostsController extends BaseController<Post> {
         const userId = req.params.userId;
         const post = {
             ...req.body,
-            owner: userId
+            uploader: userId
         }
         req.body = post;
         super.addItem(req, res);
