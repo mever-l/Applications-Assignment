@@ -8,7 +8,10 @@
     "dev": "ts-node-dev --respawn --transpileOnly src/app.ts",
     "build": "tsc",
     "start:prod": "node dist/app.js",
-    "test": "jest --detectOpenHandles --forceExit"
+    "test": "jest --detectOpenHandles --forceExit --runInBand",
+    "testAuth": "jest --detectOpenHandles --forceExit auth.test.ts",
+    "testPost": "jest --detectOpenHandles --forceExit posts.test.ts",
+    "testComment": "jest --detectOpenHandles --forceExit comments.test.ts"
   },
   "repository": {
     "type": "git",
@@ -17,14 +20,18 @@
   "author": "Mever and Juda",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.10.1",
     "@types/supertest": "^6.0.2",
     "jest": "^29.7.0",

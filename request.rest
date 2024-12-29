@@ -11,8 +11,8 @@ POST http://localhost:3000/post
 GET http://localhost:3000/post/673cf78cd85a0706dbb87beb
 
 ###
-# get all posts by a certain sender
-GET http://localhost:3000/post?sender=Juda
+# get all posts by a certain uploader
+GET http://localhost:3000/post?uploader=Juda
 
 ###
 # update a post by id
@@ -41,3 +41,7 @@ PUT http://localhost:3000/comment/update/6749eeae6c83537b1bc0baba
 ###
 # delete a comment by id
 DELETE http://localhost:3000/comment/delete/6749eeae6c83537b1bc0baba
+
+###
+# register a new user
+POST http://localhost:3000/auth/register
