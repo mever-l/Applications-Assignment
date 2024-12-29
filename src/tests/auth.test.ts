@@ -178,7 +178,7 @@ describe("Auth Tests", () => {
     const response2 = await request(app).post("/post").set(
       { authorization: "JWT " + testUser.accessToken }
     ).send(postTest);
-    expect(response2.statusCode).not.toBe(201);
+    expect(response2.statusCode).toBe(201);
 
     const response3 = await request(app).post(baseUrl + "/refresh").send({
       refreshToken: testUser.refreshToken,

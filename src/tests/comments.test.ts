@@ -56,63 +56,67 @@ let commentId = "";
 
 describe("Comments Tests", () => {
   test("Comments test get all", async () => {
-    const response = await request(app).get("/comment");
+    const response = await request(app).get("/comment")
+      .set({ authorization: "JWT " + testUser.accessToken });
     expect(response.statusCode).toBe(200);
     expect(response.body.length).toBe(0);
   });
 
   test("Test Create Comment", async () => {
     const response = await (await request(app).post("/comment")
-    .set({authorization: "JWT "+testUser.accessToken})
-    .send(testComments[0]));
+      .set({authorization: "JWT "+testUser.accessToken})
+      .send(testComments[0]));
     expect(response.statusCode).toBe(201);
     expect(response.body.message).toBe(testComments[0].message);
     commentId = response.body._id;
   });
 
   test("Test get comments by uploader", async () => {
-    const response = await request(app).get("/comment?uploader=" + testComments[0].uploadedBy);
+    const response = await request(app).get("/comment?uploader=" + testComments[0].uploadedBy)
+      .set({ authorization: "JWT " + testUser.accessToken });
     expect(response.statusCode).toBe(200);
     expect(response.body.length).toBe(1);
     expect(response.body[0].message).toBe(testComments[0].message);
   });
 
   test("Comments get post by id", async () => {
-    const response = await request(app).get("/comment/" + commentId);
+    const response = await request(app).get("/comment/" + commentId)
+      .set({ authorization: "JWT " + testUser.accessToken });
     expect(response.statusCode).toBe(200);
     expect(response.body.message).toBe(testComments[0].message);
   });
 
   test("Test Create Comment 2", async () => {
-    const response = await request(app).post("/comment")    
-    .set({authorization: "JWT "+testUser.accessToken})
-    .send(testComments[1]);
+    const response = await request(app).post("/comment")
+      .set({authorization: "JWT "+testUser.accessToken})
+      .send(testComments[1]);
     expect(response.statusCode).toBe(201);
   });
 
   test("Comments test get all 2", async () => {
-    const response = await request(app).get("/comment");
+    const response = await request(app).get("/comment")
+      .set({ authorization: "JWT " + testUser.accessToken });
     expect(response.statusCode).toBe(200);
     expect(response.body.length).toBe(2);
   });
 
   test("Test Delete Comment", async () => {
-    const response = await request(app).delete("/comment/delete/" + commentId)    
-    .set({authorization: "JWT "+testUser.accessToken});
+    const response = await request(app).delete("/comment/delete/" + commentId)
+      .set({authorization: "JWT "+testUser.accessToken});
     expect(response.statusCode).toBe(200);
-    const response2 = await request(app).get("/comment/" + commentId)   
-    .set({authorization: "JWT "+testUser.accessToken});
+    const response2 = await request(app).get("/comment/" + commentId)
+      .set({authorization: "JWT "+testUser.accessToken});
     expect(response2.statusCode).toBe(404);
   });
 
   test("Test Create Comment fail", async () => {
     const response = await request(app).post("/comment")
-    .send({
+      .send({
       message: "Test Comment",
       post: new mongoose.Types.ObjectId("6766ba578512b96e0948f8f3"),
-      uploadedBy: "",   
-      uploadedAt: new Date(),  
-    });
+      uploadedBy: "",
+      uploadedAt: new Date(),
+     });
     expect(response.statusCode).toBe(401);
   });
 });

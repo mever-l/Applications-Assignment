@@ -40,7 +40,8 @@ afterAll((done) => {
 let postId = "";
 describe("Posts Tests", () => {
   test("Posts test get all", async () => {
-    const response = await request(app).get("/post");
+    const response = await request(app).get("/post")
+          .set({ authorization: "JWT " + testUser.accessToken });
     expect(response.statusCode).toBe(200);
     expect(response.body.length).toBe(0);
   });
@@ -61,7 +62,8 @@ describe("Posts Tests", () => {
   });
 
   test("Test get post by uploader", async () => {
-    const response = await request(app).get("/post?uploader=" + testUser._id);
+    const response = await request(app).get("/post?uploader=" + testUser._id)
+      .set({ authorization: "JWT " + testUser.accessToken });
     expect(response.statusCode).toBe(200);
     expect(response.body.length).toBe(1);
     expect(response.body[0].title).toBe("Test title");
@@ -69,7 +71,8 @@ describe("Posts Tests", () => {
   });
 
   test("Test get post by id", async () => {
-    const response = await request(app).get("/post/" + postId);
+    const response = await request(app).get("/post/" + postId)
+      .set({ authorization: "JWT " + testUser.accessToken });
     expect(response.statusCode).toBe(200);
     expect(response.body.title).toBe("Test title");
     expect(response.body.description).toBe("Test description");
@@ -87,7 +90,8 @@ describe("Posts Tests", () => {
   });
 
   test("Posts test get all 2", async () => {
-    const response = await request(app).get("/post");
+    const response = await request(app).get("/post")
+      .set({ authorization: "JWT " + testUser.accessToken });
     expect(response.statusCode).toBe(200);
     expect(response.body.length).toBe(2);
   });
@@ -96,7 +100,8 @@ describe("Posts Tests", () => {
     const response = await request(app).delete("/post/" + postId)
       .set({ authorization: "JWT " + testUser.accessToken });
     expect(response.statusCode).toBe(200);
-    const response2 = await request(app).get("/post/" + postId);
+    const response2 = await request(app).get("/post/" + postId)
+      .set({ authorization: "JWT " + testUser.accessToken });
     expect(response2.statusCode).toBe(404);
   });
 
