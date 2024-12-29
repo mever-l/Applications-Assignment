@@ -23,7 +23,7 @@ const testComments = [
   {
     message: "Test Comment",
     post: new mongoose.Types.ObjectId("6766ba578512b96e0948f8f3"),
-    uploadedBy: new mongoose.Types.ObjectId("6766b07ed176ee0ca0ea6105"),   
+    uploadedBy: new mongoose.Types.ObjectId("6766b07ed176ee0ca0ea6105"),
     uploadedAt: new Date(),
 
   },
@@ -36,7 +36,6 @@ const testComments = [
 ]
 
 beforeAll(async () => {
-  console.log("beforeAll");
   app = await initApp();
   await commentModel.deleteMany();
   await userModel.deleteMany();
@@ -49,7 +48,6 @@ beforeAll(async () => {
 });
 
 afterAll((done) => {
-  console.log("afterAll");
   mongoose.connection.close();
   done();
 });
