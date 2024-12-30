@@ -9,15 +9,20 @@ export interface Comment {
     uploadedAt: Date;
 }
 
-const commentScema = new mongoose.Schema<Comment>({
-    message: String,
+const commentSchema = new mongoose.Schema<Comment>({
+    message: {
+        type: String,
+        required: true
+    },
     post: {
         type: Types.ObjectId,
-        ref: "Post"
+        ref: "Post",
+        required: true
     },
     uploadedBy: {
         type: Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true
     },
     uploadedAt: {
         type: Date,
@@ -25,4 +30,4 @@ const commentScema = new mongoose.Schema<Comment>({
     },
  })
 
- export const commentModel = mongoose.model<Comment>("Comment", commentScema);
+ export const commentModel = mongoose.model<Comment>("Comment", commentSchema);

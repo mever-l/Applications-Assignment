@@ -20,12 +20,12 @@ export const register = async (req: Request, res: Response) => {
     }
 };
 
-type tTokens = {
+type Tokens = {
     accessToken: string,
     refreshToken: string
 }
 
-export const generateToken = (userId: string): tTokens | null => {
+export const generateToken = (userId: string): Tokens | null => {
     if (!process.env.TOKEN_SECRET) {
         return null;
     }

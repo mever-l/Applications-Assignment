@@ -55,11 +55,13 @@ export class BaseController<T> {
     async updateItem(req: Request, res: Response) {
         try {
             const itemId = req.params.id;
-            const newItem = new Model({
-                _id: itemId,
-                ...req.body
-            })
-            const item = await this.model.findByIdAndUpdate(itemId, newItem);
+            const item = await this.model.findByIdAndUpdate(
+                itemId,
+                {
+                     _id: itemId,
+                      ...req.body
+                });
+
             res.status(200).send(item);
         } catch (error) {
             res.status(400).send(error);

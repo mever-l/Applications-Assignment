@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import { commentsRouter } from "./routes/comments.router";
 import { postsRouter } from "./routes/posts.router";
 import { authRouter } from "./routes/auth.router";
+import swaggerJsDoc from "swagger-jsdoc";
+import swaggerUI from "swagger-ui-express";
 
 export const app = express();
 dotenv.config();
@@ -20,6 +22,21 @@ app.use(bodyParser.json());
 app.use('/post', postsRouter);
 app.use('/comment', commentsRouter);
 app.use('/auth', authRouter);
+
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Web Dev REST API",
+      version: "1.0.0",
+      description: "Homework 2025 first semester",
+    },
+    servers: [{ url: "http://localhost:3000", },],
+  },
+  apis: ["./src/routes/*.ts"],
+};
+const specs = swaggerJsDoc(options);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
 export const initApp = () => {
     return new Promise<Express>((resolve, reject) => {
